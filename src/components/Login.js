@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
+import './Login.css';
 
 function Login() {
     const [email, setEmail] = useState('');
@@ -13,27 +14,39 @@ function Login() {
         e.preventDefault();
         // Preform authentication logic here.
         login();
-        navigate('/dashboard');
+        navigate('./Dashboard.js');
     };
 
     return (
-        <div>
-            <h2>Login</h2>
-            <form onSubmit={handleLogin}>
+        <div className="container">
+            <div className="form-container">
+                <h2 className="title">Login</h2>
+                <form className="form" onSubmit={handleLogin}>
                 <input 
                     type="email"
                     placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className="input"
                 />
                 <input 
                     type="password"
                     placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    required
+                    className='input'
                 />
-                <button type="submit">Login</button>
-            </form>
+                <button type="submit" className='button'>Login</button>
+                </form>
+                <p>
+                    New user? <Link to="/signup">Sign up here</Link>
+                </p>
+                <p>
+                    Forgot your password? <Link to="/password-reset">Reset it here</Link>
+                </p>
+            </div>
         </div>
     );
 }
